@@ -39,7 +39,7 @@ IssueTracker::Application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
-  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  # Force all access to the application over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
   # Set to :debug to see everything in the log.
@@ -58,7 +58,7 @@ IssueTracker::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets.
-  # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
+  # application.js, application.css.sass, and all non-JS/CSS in application/assets folder are already added.
   # config.assets.precompile += %w( search.js )
 
   # Ignore bad email addresses and do not raise email delivery errors.
