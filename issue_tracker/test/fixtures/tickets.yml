@@ -1,17 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  status: 1
-  ownership: 1
-  department: 1
   subject: MyString
-  text: MyText
-  id: MyString
+  text: MyString
+  department: MyString
+  status: MyString
+  ownership: MyString
+  customer_id: MyString
+  unique: MyString
 
 two:
-  status: 1
-  ownership: 1
-  department: 1
   subject: MyString
-  text: MyText
-  id: MyString
+  text: MyString
+  department: MyString
+  status: MyString
+  ownership: MyString
+  customer_id: MyString
+  unique: MyString

@@ -50,7 +50,7 @@
             - else
               %li= link_to current_user.email
               %li= link_to 'Logout', destroy_user_session_path, :method => :delete
-            %li= link_to 'New ticket'
+            %li= link_to 'New ticket', new_ticket_path
             -#%li.dropdown
             -#  %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
             -#    Dropdown

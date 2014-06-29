@@ -1,8 +1,9 @@
 IssueTracker::Application.routes.draw do
-  get "ticket/index"
-  get "ticket/create"
+  resources :tickets
+  # get "ticket/index"
+  # get "ticket/create"
   get "ticket/answer"
-  get "ticket/update"
+  # get "ticket/update"
   get "ticket/getTicker"
   devise_for :users
   get "users/index"
@@ -10,7 +11,7 @@ IssueTracker::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'application#index'
+  root 'tickets#new'
 
   namespace :admin do
     resources :users, :tickets, :customers, :departments
