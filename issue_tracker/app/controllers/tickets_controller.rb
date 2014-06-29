@@ -4,9 +4,31 @@ class TicketsController < ApplicationController
   # GET /tickets
   # GET /tickets.json
   def index
-    @tickets = Ticket.all
+    @tickets = Ticket.order(:status)
+    @status = Status.all
   end
 
+  def search
+    # Searching ticket by id
+    @ticket = Ticket.find_by(unique: params[:id])
+    if @ticket.nil?
+      @tickets = Ticket.find_by_subject(params[:id])
+      if @tickets.nil?
+        redirect_to new_ticket_path, notice: 'Ticket not found'
+      else
+        render 'index'
+      end
+    else
+      render 'show'
+    end
+  end
+
+  def answer
+    @answer = Answer.new(answer_params)
+    @answer.save
+    @ticket = Ticket.find_by(id: @answer.ticket_id)
+    redirect_to @ticket
+  end
   # GET /tickets/1
   # GET /tickets/1.json
   def show
@@ -15,6 +37,7 @@ class TicketsController < ApplicationController
   # GET /tickets/new
   def new
     @ticket = Ticket.new
+    @department = Department.all
   end
 
   # GET /tickets/1/edit
@@ -25,7 +48,14 @@ class TicketsController < ApplicationController
   # POST /tickets.json
   def create
     @ticket = Ticket.new(ticket_params)
-
+    @customer = Customer.find_or_create_by(email: params[:email])
+    if @customer.new_record?
+      @customer.email = params[:email]
+      @customer.name = params[:name]
+      @customer.save
+    end
+    @ticket.department = params[:department]
+    @ticket.customer_id = @customer.id
     respond_to do |format|
       if @ticket.save
         format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
@@ -70,5 +100,9 @@ class TicketsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def ticket_params
       params.require(:ticket).permit(:subject, :text, :department, :status, :ownership, :customer_id, :unique)
+    end
+
+    def answer_params
+      params.require(:answer).permit(:text, :ticket_id)
     end
 end

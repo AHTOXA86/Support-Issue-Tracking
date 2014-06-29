@@ -1,10 +1,11 @@
 IssueTracker::Application.routes.draw do
-  resources :tickets
-  # get "ticket/index"
+
+  get "tickets/search"
   # get "ticket/create"
-  get "ticket/answer"
+  post "tickets/answer" => "tickets#answer"
   # get "ticket/update"
-  get "ticket/getTicker"
+  # get "ticket/getTicker"
+  resources :tickets
   devise_for :users
   get "users/index"
   # The priority is based upon order of creation: first created -> highest priority.

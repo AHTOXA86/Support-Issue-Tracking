@@ -13,19 +13,26 @@
     = f.label :text
     = f.text_field :text
   .field
-    = f.label :department
-    = f.text_field :department
+    = f.label 'Select department'
+    = select_tag "department", options_from_collection_for_select(@department, "id", "name")
   .field
-    = f.label :status
-    = f.text_field :status
+    = f.label 'Enter Your name'
+    = text_field_tag 'name'
   .field
-    = f.label :ownership
-    = f.text_field :ownership
-  .field
-    = f.label :customer_id
-    = f.text_field :customer_id
-  .field
-    = f.label :unique
-    = f.text_field :unique
+    = f.label 'Enter Your email'
+    = text_field_tag 'email'
+    -#= f.text_field :department
+  -#.field
+  -#  = f.label :status
+  -#  = f.text_field :status
+  -#.field
+  -#  = f.label :ownership
+  -#  = f.text_field :ownership
+  -#.field
+  -#  = f.label :customer_id
+  -#  = f.text_field :customer_id
+  -#.field
+  -#  = f.label :unique
+  -#  = f.text_field :unique
   .actions
     = f.submit 'Save'

@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140629150457) do
+ActiveRecord::Schema.define(version: 20140629183339) do
 
   create_table "answers", force: true do |t|
-    t.string   "ticket_id"
+    t.integer  "ticket_id"
     t.text     "text"
     t.datetime "date"
     t.datetime "created_at"
@@ -31,6 +31,12 @@ ActiveRecord::Schema.define(version: 20140629150457) do
   create_table "departments", force: true do |t|
     t.string   "name"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "statuses", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

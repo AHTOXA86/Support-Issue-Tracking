@@ -18,10 +18,14 @@
       %td= ticket.subject
       %td= ticket.text
       %td= ticket.department
-      %td= ticket.status
+      %td
+        = select_tag "status", options_from_collection_for_select(@status, "id", "name", ticket.status)
+        %button.btn.btn-default Set status
       %td= ticket.ownership
       %td= ticket.customer_id
       %td= ticket.unique
+      %td
+        %button.btn.btn-default{"onclick" => "giveAnswer(#{ticket.id})"} Give answer
       %td= link_to 'Show', ticket
       %td= link_to 'Edit', edit_ticket_path(ticket)
       %td= link_to 'Destroy', ticket, :method => :delete, :data => { :confirm => 'Are you sure?' }
@@ -29,3 +33,20 @@
 %br
 
 = link_to 'New Ticket', new_ticket_path
+
+#myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      = form_for(:answer, :url => {:action => 'answer'}, :method => :post) do |f|
+        .modal-header
+          %button.close{"data-dismiss" => "modal", type: "button"}
+            %span{"aria-hidden" => "true"} ×
+            %span.sr-only Close
+          %h4.modal-title Enter answer
+        .modal-body
+          %p
+            = text_area(:answer, :text, rows: 10, class: "form-control")
+            = hidden_field(:answer, :ticket_id)
+        .modal-footer
+          %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Close
+          %button.btn.btn-primary{type: "submite"} Save answer
