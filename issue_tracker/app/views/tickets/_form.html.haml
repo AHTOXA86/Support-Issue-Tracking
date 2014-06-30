@@ -1,38 +1,44 @@
-= form_for @ticket do |f|
-  - if @ticket.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@ticket.errors.count, "error")} prohibited this ticket from being saved:"
-      %ul
-        - @ticket.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :subject
-    = f.text_field :subject
-  .field
-    = f.label :text
-    = f.text_field :text
-  .field
-    = f.label 'Select department'
-    = select_tag "department", options_from_collection_for_select(@department, "id", "name", @ticket.department)
-  .field
-    = f.label 'Enter Your name'
-    = text_field_tag 'name'
-  .field
-    = f.label 'Enter Your email'
-    = text_field_tag 'email'
-    -#= f.text_field :department
-  -#.field
-  -#  = f.label :status
-  -#  = f.text_field :status
-  -#.field
-  -#  = f.label :ownership
-  -#  = f.text_field :ownership
-  -#.field
-  -#  = f.label :customer_id
-  -#  = f.text_field :customer_id
-  -#.field
-  -#  = f.label :unique
-  -#  = f.text_field :unique
-  .actions
-    = f.submit 'Save'
+.row
+  .col-md-6.col-md-offset-3
+    = form_for @ticket do |f|
+      - if @ticket.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@ticket.errors.count, "error")} prohibited this ticket from being saved:"
+          %ul
+            - @ticket.errors.full_messages.each do |msg|
+              %li= msg
+      .panel.panel-info
+        .panel-heading
+          %h3.panel-title
+          .field
+            = f.label :subject
+            = f.text_field :subject, class: "form-control"
+        .panel-body
+          .field
+            = f.label :text
+            = f.text_area :text, class: "form-control"
+          .field
+            = f.label 'Select department'
+            = select_tag "department", options_from_collection_for_select(@department, "id", "name", @ticket.department), {class: "form-control"}
+        .panel-footer
+          .field
+            = f.label 'Enter Your name'
+            = text_field_tag 'name', "", class: "form-control"
+          .field
+            = f.label 'Enter Your email'
+            = text_field_tag 'email', "", class: "form-control"
+            -#= f.text_field :department
+          -#.field
+          -#  = f.label :status
+          -#  = f.text_field :status
+          -#.field
+          -#  = f.label :ownership
+          -#  = f.text_field :ownership
+          -#.field
+          -#  = f.label :customer_id
+          -#  = f.text_field :customer_id
+          -#.field
+          -#  = f.label :unique
+          -#  = f.text_field :unique
+          .actions
+            = f.submit 'Save', class: "btn"

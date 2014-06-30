@@ -35,6 +35,10 @@ class TicketsController < ApplicationController
   # GET /tickets/1
   # GET /tickets/1.json
   def show
+    @status = Status.find_by(@ticket.status)
+    @user = User.find_by(@ticket.ownership)
+    @department = Department.find_by(@ticket.department)
+    @customer = Customer.find_by(@ticket.customer_id)
     @answers = Answer.where(ticket_id: @ticket.id)
   end
 
@@ -62,7 +66,7 @@ class TicketsController < ApplicationController
     @ticket.customer_id = @customer.id
     respond_to do |format|
       if @ticket.save
-        # UserMailer.new_ticket_email(@customer, @ticket.id).deliver
+        UserMailer.new_ticket_email(@customer, @ticket.id).deliver
         format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
         format.json { render action: 'show', status: :created, location: @ticket }
       else
@@ -78,6 +82,7 @@ class TicketsController < ApplicationController
     @ticket.department = params[:department]
     respond_to do |format|
       if @ticket.update(ticket_params)
+        UserMailer.change_ticket(@ticket).deliver
         format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }
         format.json { head :no_content }
       else

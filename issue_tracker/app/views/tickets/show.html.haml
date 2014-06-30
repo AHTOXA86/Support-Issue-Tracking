@@ -1,34 +1,38 @@
-%p#notice= notice
+.row
+  .col-md-6.col-md-offset-3
+    .panel.panel-info
+      .panel-heading
+        %h3.panel-title
+          Subject:
+          = @ticket.subject
+      .panel-body
+        %p
+          %b Text:
+          = @ticket.text
+        - unless @department.nil?
+          %p
+            %b
+              Department:
+              = @department.name
+        %p
+          %b Status:
+          = @status.name
+        %p
+          %b Ownership:
+          = @user.name
+        %p
+          %b Customer:
+          = @customer.name
+        %p
+          %b Unique:
+          = @ticket.unique
 
-%p
-  %b Subject:
-  = @ticket.subject
-%p
-  %b Text:
-  = @ticket.text
-%p
-  %b Department:
-  = @ticket.department
-%p
-  %b Status:
-  = @ticket.status
-%p
-  %b Ownership:
-  = @ticket.ownership
-%p
-  %b Customer:
-  = @ticket.customer_id
-%p
-  %b Unique:
-  = @ticket.unique
-
-= link_to 'Edit', edit_ticket_path(@ticket)
-\|
-= link_to 'Back', tickets_path
-
-- unless @answers.nil?
-  %table
-    %tr
-    - @answers.each do |answer|
-      %tr
-        %td= answer.text
+        = link_to 'Edit', edit_ticket_path(@ticket)
+        \|
+        = link_to 'Back', tickets_path
+      - unless @answers.nil?
+        .panel-footer
+          Answers:
+        %ul.list-group
+          - @answers.each do |answer|
+            %li.list-group-item= answer.text
