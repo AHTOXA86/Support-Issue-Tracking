@@ -7,7 +7,7 @@
 <h1>Hi, <%= @user.name %>!</h1>
 <p>
   Your ticket was changed.
-  You can see it there - <%= link_to 'Show', @ticket %>.<br>
+  You can see it <%=link_to "there", ticket_path(@ticket, only_path: false) %>.<br>
 </p>
 </body>
 </html>

@@ -1,8 +1,9 @@
 class UserMailer < ActionMailer::Base
   default from: "issue.tracker@ahtoxa.pp.ua"
 
-  def new_ticket_email(user,id)
+  def new_ticket_email(user,ticket)
     @user = user
+    @ticket = ticket
     # @url  = link_to tickets_path(id)
     mail(to: @user.email, subject: 'Your ticket added. Waiting on stuff response.')
   end
@@ -10,14 +11,14 @@ class UserMailer < ActionMailer::Base
   def change_ticket(ticket)
     @ticket = ticket
     # @url  = link_to tickets_path(ticket.id)
-    @user = Customer.find_by(@ticket.customer_id)
+    @user = Customer.find(@ticket.customer_id)
     mail(to: @user.email, subject: 'Your ticket are changed.')
   end
 
-  def answer(ticket)
+  def answer(ticket, answer)
     @ticket = ticket
-    @url  = link_to tickets_path(ticket.id)
-    @user = Customer.find_by(@ticket.customer_id)
+    @answer = answer
+    @user = Customer.find(@ticket.customer_id)
     mail(to: @user.email, subject: 'Your ticket have answered!')
   end
 end

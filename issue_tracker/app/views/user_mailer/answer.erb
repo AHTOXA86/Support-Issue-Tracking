@@ -7,7 +7,11 @@
 <h1>Hi, <%= @user.name %>!</h1>
 <p>
   Your ticket was answered.
-  You can see it there - <%= @url %>.<br>
+  Answer is:
+  <p>
+    <%= @answer.text%>
+  </p>
+  You can see it <%=link_to "there", ticket_path(@ticket, only_path: false) %>.<br>
 </p>
 </body>
 </html>

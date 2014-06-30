@@ -7,7 +7,7 @@
 <h1>Welcome to Issue tracker, <%= @user.name %></h1>
 <p>
   You have successfully added yours ticket.
-  You can see it there - <%= @url %>.<br>
+  You can see it <%=link_to "there", ticket_path(@ticket, only_path: false) %>.<br>
 </p>
 <p>Thanks for ticket and have a great day!</p>
 </body>
