@@ -5,20 +5,19 @@ class TicketsController < ApplicationController
   # GET /tickets.json
   def index
     @tickets = Ticket.order(:status)
-    @statuses = Status.all
-    @users = User.all
-    @departments = Department.all
-    @customers = Customer.all
+    init_models
   end
 
   def search
     # Searching ticket by id
     @ticket = Ticket.find_by(unique: params[:id])
     if @ticket.nil?
-      @tickets = Ticket.find_by_subject(params[:id])
+      @tickets = Ticket.where("lower(text) LIKE ?", "%#{params[:id].downcase}%")
       if @tickets.nil?
         redirect_to new_ticket_path, notice: 'Ticket not found'
       else
+        init_models
+        @notice = 'Found those tickets:'
         render 'index'
       end
     else
@@ -63,7 +62,7 @@ class TicketsController < ApplicationController
     @ticket.customer_id = @customer.id
     respond_to do |format|
       if @ticket.save
-        UserMailer.new_ticket_email(@customer, @ticket.id).deliver
+        # UserMailer.new_ticket_email(@customer, @ticket.id).deliver
         format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
         format.json { render action: 'show', status: :created, location: @ticket }
       else
@@ -111,5 +110,12 @@ class TicketsController < ApplicationController
 
     def answer_params
       params.require(:answer).permit(:text, :ticket_id)
+    end
+
+    def init_models
+      @statuses = Status.all
+      @users = User.all
+      @departments = Department.all
+      @customers = Customer.all
     end
 end
