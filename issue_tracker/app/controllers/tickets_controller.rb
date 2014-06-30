@@ -5,7 +5,10 @@ class TicketsController < ApplicationController
   # GET /tickets.json
   def index
     @tickets = Ticket.order(:status)
-    @status = Status.all
+    @statuses = Status.all
+    @users = User.all
+    @departments = Department.all
+    @customers = Customer.all
   end
 
   def search
@@ -39,6 +42,7 @@ class TicketsController < ApplicationController
   # GET /tickets/new
   def new
     @ticket = Ticket.new
+    @ticket.department = 1
     @department = Department.all
   end
 
@@ -52,11 +56,9 @@ class TicketsController < ApplicationController
   def create
     @ticket = Ticket.new(ticket_params)
     @customer = Customer.find_or_create_by(email: params[:email])
-    if @customer.new_record?
-      @customer.email = params[:email]
-      @customer.name = params[:name]
-      @customer.save
-    end
+    @customer.name = params[:name]
+    @customer.save
+
     @ticket.department = params[:department]
     @ticket.customer_id = @customer.id
     respond_to do |format|
