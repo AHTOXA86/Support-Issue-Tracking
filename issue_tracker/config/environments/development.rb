@@ -28,4 +28,15 @@ IssueTracker::Application.configure do
   config.assets.debug = true
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.logger = Logger
+  config.action_mailer.smtp_settings = {
+      address:              'mx1.hostinger.com.ua',
+      port:                 2525,
+      domain:               'ahtoxa.pp.ua',
+      user_name:            'issue.tracker@ahtoxa.pp.ua',
+      password:             '123456789',
+      authentication:       'plain',
+      enable_starttls_auto: true  }
 end
