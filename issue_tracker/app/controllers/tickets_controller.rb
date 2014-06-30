@@ -19,6 +19,7 @@ class TicketsController < ApplicationController
         render 'index'
       end
     else
+      @answers = Answer.where(ticket_id: @ticket.id)
       render 'show'
     end
   end
@@ -32,6 +33,7 @@ class TicketsController < ApplicationController
   # GET /tickets/1
   # GET /tickets/1.json
   def show
+    @answers = Answer.where(ticket_id: @ticket.id)
   end
 
   # GET /tickets/new
@@ -42,6 +44,7 @@ class TicketsController < ApplicationController
 
   # GET /tickets/1/edit
   def edit
+    @department = Department.all
   end
 
   # POST /tickets
@@ -70,6 +73,7 @@ class TicketsController < ApplicationController
   # PATCH/PUT /tickets/1
   # PATCH/PUT /tickets/1.json
   def update
+    @ticket.department = params[:department]
     respond_to do |format|
       if @ticket.update(ticket_params)
         format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }

@@ -12,3 +12,5 @@ statuses = Status.create([
                          {name: "Cancelled"},
                          {name: "Completed"},
                          ])
+departments = Department.create([{name: "First", description: "First", id: 0}, {name: "Second"}])
+users = User.create([{email: "admin@admin.admin", encrypted_password: "$2a$10$D0l63ZhAcjGxHUVq7OQnJOUz.5RskuS0svpFgoqGkWVMOVmbkxhcS"}])

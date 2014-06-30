@@ -19,8 +19,8 @@
       %td= ticket.text
       %td= ticket.department
       %td
-        = select_tag "status", options_from_collection_for_select(@status, "id", "name", ticket.status)
-        %button.btn.btn-default Set status
+        = select_tag "status_#{ticket.id}", options_from_collection_for_select(@status, "id", "name", ticket.status)
+        %button.btn.btn-default{"onclick" => "setStatus(#{ticket.id})"} Set status
       %td= ticket.ownership
       %td= ticket.customer_id
       %td= ticket.unique

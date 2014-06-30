@@ -25,3 +25,10 @@
 = link_to 'Edit', edit_ticket_path(@ticket)
 \|
 = link_to 'Back', tickets_path
+
+- unless @answers.nil?
+  %table
+    %tr
+    - @answers.each do |answer|
+      %tr
+        %td= answer.text

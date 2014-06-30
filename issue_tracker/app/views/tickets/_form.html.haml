@@ -14,7 +14,7 @@
     = f.text_field :text
   .field
     = f.label 'Select department'
-    = select_tag "department", options_from_collection_for_select(@department, "id", "name")
+    = select_tag "department", options_from_collection_for_select(@department, "id", "name", @ticket.department)
   .field
     = f.label 'Enter Your name'
     = text_field_tag 'name'
